@@ -1,0 +1,48 @@
+use anyhow::{anyhow, Result};
+use solana_sdk::signer::Signer;
+
+use crate::cli::{Cli, Context, Commands};
+use crate::log;
+
+use spool_api::consts::ONE_SPOOL;
+use spool_client::{
+    program::{initialize, airdrop_tokens}, 
+    utils::create_ata
+};
+
+pub async fn handle_admin_commands(cli:Cli, context: Context) -> Result<()> {
+
+    log::print_divider();
+
+    match cli.command {
+        Commands::Init {} => {
+
+            let sig = initialize(context.rpc(), context.payer()).await?;
+            log::print_section_header("Program Initialized");
+            log::print_message(&format!("Signature: {sig}"));
+            log::print_divider();
+
+        },
+        Commands::Airdrop { amount } => {
+
+            let (beneficiary_ata, _) = create_ata(context.rpc(), context.payer())
+                .await
+                .map_err(|e| anyhow!("Failed to create/ensure ATA for payer {}: {}", context.payer().pubkey(), e))?;
+
+            let sig = airdrop_tokens(
+                context.rpc(),
+                context.payer(),
+                beneficiary_ata,
+                amount * ONE_SPOOL,
+            ).await?;
+
+            log::print_section_header("Airdrop Completed");
+            log::print_message(&format!("Signature: {sig}"));
+            log::print_divider();
+        },
+        _ => {}
+    }
+
+    Ok(())
+}
+
