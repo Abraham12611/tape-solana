@@ -1,0 +1,33 @@
+use std::sync::Arc;
+
+use anyhow::Result;
+use solana_sdk::{
+    signature::{Keypair, Signer, Signature},
+    pubkey::Pubkey,
+};
+use spool_api::instruction::spool::build_write_ix;
+use solana_client::nonblocking::rpc_client::RpcClient;
+use crate::{
+    consts::*,
+    utils::*,
+};
+
+pub async fn write_to_spool(
+    client: &Arc<RpcClient>,
+    signer: &Keypair,
+    spool_address: Pubkey,
+    writer_address: Pubkey,
+    data: &[u8],
+) -> Result<Signature> {
+
+    let instruction = build_write_ix(
+        signer.pubkey(),
+        spool_address,
+        writer_address,
+        data,
+    );
+
+    let sig = send_with_retry(client, &instruction, signer, MAX_RETRIES).await?;
+    Ok(sig)
+}
+
