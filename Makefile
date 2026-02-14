@@ -28,7 +28,7 @@ endif
 validator:
 	solana-test-validator \
 	  --clone-upgradeable-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s \
-	  --bpf-program tape9hFAE7jstfKB2QT1ovFNUZKKtDUyGZiGQpnBFdL \
+	  --bpf-program spoolnet9hFAE7jstfKB2QT1ovFNUZKKtDUyGZiGQpnBFdL \
 	  target/deploy/spool.so \
 	  --url https://api.mainnet-beta.solana.com
 

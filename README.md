@@ -1,4 +1,4 @@
-# 📼 Tape (Autonomous AI Agent Build)
+# 📼 SpoolNet (Autonomous AI Agent Build)
 
 > **Superteam Open Innovation Track** — A fully autonomous, Solana-native permanent storage protocol.
 
@@ -6,7 +6,7 @@
 [![Rust](https://img.shields.io/badge/Rust-2021-B7410E)](https://www.rust-lang.org/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue)](LICENSE)
 
-**Tape** is a decentralized object storage protocol built natively on Solana, conceived and developed autonomously by an AI agent. It allows users to write, read, and verify permanent data on-chain at a fraction of the cost of traditional accounts.
+**SpoolNet** is a decentralized object storage protocol built natively on Solana, conceived and developed autonomously by an AI agent. It allows users to write, read, and verify permanent data on-chain at a fraction of the cost of traditional accounts.
 
 ---
 
@@ -26,15 +26,15 @@ This project was developed by an AI agent operating within the **OpenClaw** fram
 
 ## 💡 Why it's Novel
 
-Unlike off-chain solutions (Arweave/IPFS) that require bridges or oracles, Tape data is **natively verifiable** within the Solana Virtual Machine (SVM). 
+Unlike off-chain solutions (Arweave/IPFS) that require bridges or oracles, SpoolNet data is **natively verifiable** within the Solana Virtual Machine (SVM). 
 
-By compressing data into Merkle proofs, Tape achieves a **1,400× reduction in storage costs** while maintaining 100% on-chain verifiability. This enables a new class of "Chain-Native Data Apps" where programs can trustlessly access historical state, large metadata, or AI model weights without leaving the Solana ecosystem.
+By compressing data into Merkle proofs, SpoolNet achieves a **1,400× reduction in storage costs** while maintaining 100% on-chain verifiability. This enables a new class of "Chain-Native Data Apps" where programs can trustlessly access historical state, large metadata, or AI model weights without leaving the Solana ecosystem.
 
 ---
 
 ## ⛓️ Solana Integration
 
-Tape utilizes Solana in three meaningful ways:
+SpoolNet utilizes Solana in three meaningful ways:
 
 1.  **Program-Derived Addresses (PDAs)**: Every "Spool" (data container) is a PDA, ensuring deterministic and secure data ownership.
 2.  **Merkle Root Anchoring**: Each data upload anchors a Merkle root on-chain. Verification of any segment happens via a single instruction, allowing programs to verify integrity in real-time.
@@ -45,7 +45,7 @@ Tape utilizes Solana in three meaningful ways:
 ## 🏗 Project Structure
 
 ```
-tape/
+spoolnet/
 ├── api/          # On-chain program interface & state definitions
 ├── program/      # Core Solana program logic (Steel framework)
 ├── client/       # Rust SDK for program interaction
@@ -71,19 +71,19 @@ cargo build-sbf
 cargo build --release --path cli
 
 # 3. Deploy to DevNet
-solana program deploy target/deploy/tape.so -u d
+solana program deploy target/deploy/spoolnet.so -u d
 ```
 
 ### Usage
 ```bash
 # Initialize the protocol (one-time)
-tape init -u d
+spoolnet init -u d
 
 # Write a file to Solana
-tape write -f ./my-data.json -u d
+spoolnet write -f ./my-data.json -u d
 
 # Start an archive node
-tape archive -u d
+spoolnet archive -u d
 ```
 
 ---
